@@ -1,0 +1,95 @@
+<!DOCTYPE html >
+<html ng-app="login">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hungryhouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="noindex,nofollow"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="bodyAuth bodyHungryhouse desktop">
+
+<div class="body" ng-controller="loginController">
+    <div class="topArea">
+        <div class="header">
+            <a class="logo" href="index.html" title="order takeaway online">
+                <span>Hungryhouse.co.uk</span>
+            </a>
+
+            <div class="userInfo">
+                <a 
+                		href="register.html"
+                        class="guestJoinButton">
+                    <span>Create account</span>
+                </a>
+
+                <a class="button--small" href="javascript:void(0)">
+                    <span>Sign in</span>
+                </a>
+            </div>
+            
+            <div id="header-message" class="larger">
+                <span>Order Takeaway Online!</span>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div id="main-container">
+
+        <div id="maincontent-start"></div>
+        <!-- Start body -->
+        <div id="maincontent">
+            <div class="signInPopupWrapper signInWrapperNew signInWrapperNewForJQ clearfix">
+                <div id="popup-tpl" class="signIn">
+
+                    <i class="icon-logo-hh hhLogoTop"></i>
+                    <p class="headline flexItem"><i class="icon-login-user"></i>&nbsp;
+                    	<strong>Sign in to your account</strong>
+                    </p>
+
+                    <form >
+                        <fieldset class="login">
+                            <div class="errorMsg">
+                                <i class="icon-attention"></i>&nbsp;<span class="errorTxt"></span>
+                            </div>
+                            
+                            <input autocapitalize="off" autocorrect="off" type="email"
+                                   placeholder="Email Address" required="required" ng-model="email" />
+                                   
+                            <input autocapitalize="off" autocorrect="off" type="password"
+                                   placeholder="Password" required="required" ng-model="password" 
+                                   oninvalid="setCustomValidity('Please input password');" 
+                                   oninput="setCustomValidity('');"/>
+
+                            <button type="submit" class="button--green" ng-click="login()" >Sign in</button>
+                        </fieldset>
+                    </form>
+
+
+                    <a id="box-link-inside" href="register.html" class="iconLinkBlue flexItem">
+                        <i class="icon-create-account"></i>&nbsp;
+                        <span>Not a member? Create Account!</span>
+                    </a>
+
+                </div>
+            </div>
+
+        </div> <!-- end maincontent -->
+        <div class="clear"></div>
+        <!-- End body -->
+        <div id="maincontent-end"></div>
+    </div> <!-- end main-container -->
+
+
+</div>
+<!--footer-->
+<footer-html></footer-html>
+
+<script type="text/javascript" src="js/angular.js" ></script>
+<script type="text/javascript" src="js/footer.js" ></script>
+<script type="text/javascript" src="js/login.js" ></script>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html ng-app="index" >
+<head>
+    <meta charset="utf-8">
+    <title>Love Takeaway | hungryhouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="./css/main.css"/>
+</head>
+<body class="homepage homeGuest" ng-controller="indexController">
+	<header>
+	    <nav class="homepage">
+	        <a class="logo--homepage" href="#"><h2>hungryhouse.co.uk</h2></a>
+	        <ul ng-show="!isLogin" >
+	            <li>
+	                <a
+			            	href="./register.html"
+			                data-tooltip="Members benefit from a better Checkout experience, but it's also possible to order as a guest without creating an account."
+			                class="fancyOpen tooltip button--small--transparent">
+	                    Create Account
+	                </a>
+	            </li>
+	            <li>
+	                <a
+	                        class="fancyOpen button--small"
+	                        href="./login.html">
+	                    Sign in
+	                </a>
+	            </li>
+	        </ul>
+	        <!--已登录-->
+	        <ul ng-show="isLogin">
+			
+				<li>
+					<a class="font-white" title="My Order" href="javascript:void(0);">My Order</a>
+				</li>
+				
+				<li>
+					<a class="font-white" title="Order Tracking" href="javascript:void(0);">Order Tracking</a>
+				</li>
+				<li>
+					<a class="button--small--grey" title="Sign Out" href="javascript:void(0);" ng-click="logout()">Sign Out</a>
+				</li>
+			</ul>
+	    </nav>
+	    <!-- // dynamic search form-->
+	    <section class="homepage-search">
+	        <h1 class="highlight-red">Love Takeaway.</h1>
+	        <form class="cuisineChoose searchtool--homepage" >
+	            <ol>
+	                <li>
+	                    <label for="cuisine-select">I'm in the mood for...</label>
+	                    <select ng-model="selectedCuisine" >
+	                        <option value="">All cuisines</option>
+	                        <option ng-repeat="cuisine in cuisines" ng-value="cuisine">{{cuisine}}</option>
+	                    </select>
+	                    <div class="arrow-select"><span class="icon-arrow-down"></span></div>
+	                </li>
+	                <li>
+	                    <label for="post-code-input">The restaurant is...</label>
+	                    <input type="search" placeholder="e.g. Goodfellas" sf-typeahead 
+	                     datasets="nameDataset" ng-model="selectedName" />
+	                </li>
+	                <li>
+	                    <button type="button" ng-click="search()" >feed me</button>
+	                </li>
+	            </ol>
+	        </form>
+	        <img alt="paying options" src="./images/home/paying_options_paypal.png" class="payment-options postLoad"></section>
+		    <div class="breadcrumb">
+		        <div class="breadcrumbBox"><span><i class="icon-forks"></i>1. Pick a restaurant</span><span><i
+		                class="icon-bike"></i>2. Order a takeaway</span><span><i class="icon-burger"></i>3. Your food is delivered</span>
+		        </div>
+		    </div>
+			
+		    <video autoplay loop poster="./video/intro-4.jpg?e287726" id="bgvid">
+		        <source src="./video/intro-4.webm" type="video/webm">
+		        <source src="./video/intro-4.mp4" type="video/mp4">
+		    </video>
+	</header>
+	
+	<!-- Our main content-->
+	<div id="hungryhouse-mobile-apps-adv-holder" class="center">
+	    <a href="http://hungryhouse.co.uk/app">
+	        <img alt="download hungyhouse mobile app" class="advertisingImg center postLoad"
+	             width="960" height="500"
+	             src="./images/home/couple-brand-tv.jpg"/>
+	    </a>
+	    <div class="downloadAppWrapper">
+	        <a href="https://app.adjust.com/1511st?deeplink=hungryhouse://"
+	           data-uri="https://app.adjust.com/1511st?deeplink=hungryhouse://" class="altUri appApple">
+	            <span>iPhone App</span></a>
+	        <a href="https://app.adjust.com/yz2z2a?deeplink=hungryhouse://"
+	           data-uri="https://play.google.com/store/apps/details?id=com.hungryhouse&referrer=adjust_reftag%3Dc7bJtnxCnV4dP"
+	           class="altUri appAndroid">
+	            <span>Android App</span></a>
+	    </div>
+	</div>
+	
+	<div class="news-items" id="section-news">
+	
+	    <div class="news-item news-item-big">
+	        <div class="header">
+	            <i class="icon-register"></i> <span id="newsRegisterText">Are you a restaurant owner?</span> <a
+	                href="register.html">Register here! <i class="icon-arrow-right"></i></a>
+	        </div>
+	    </div>
+	
+	    <div class="news-item news-item-big">
+	        <div class="header">
+	            <span id="newsSocialText">Follow us on:</span>
+	            <a target="_blank" href="http://www.facebook.com/hungryhouse"><i
+	                    class="icon-facebook"></i><span>facebook</span></a>
+	            <a target="_blank" href="http://twitter.com/hungryhouse"><i
+	                    class="icon-twitter"></i><span>twitter</span></a>
+	            <a target="_blank" href="https://www.instagram.com/hungryhouseuk/"><i class="icon-instagram"></i><span>Instagram</span></a>
+	            <a target="_blank" href="http://www.youtube.com/user/ihungryhouse"><i
+	                    class="icon-youtube"></i><span>youTube</span></a>
+	        </div>
+	    </div>
+	</div>
+	
+	<div id="section-bottom-info">
+	    <ul class="cards">
+	        <li class="card three-col-card">
+	            <i class="icon-deliveryhero"><span>About</span></i>
+	            <div class="card-content">
+	                <h2 class="info-header">About hungryhouse</h2>
+	                <p class="info-content">hungryhouse is the UK`s premier online platform for takeaway and food delivery.
+	                    With more than 10,000 restaurants on our platform, ordering food delivery from your local takeaway
+	                    has never been easier. From <a title="Birmingham Takeaway" href="birmingham_takeaway">Birmingham</a>
+	                    to Glasgow, <a title="London Takeaway" href="london_takeaway">London</a> to Manchester, hungryhouse
+	                    has partnered with the finest takeaway restaurants from across Britain so you can find and order a
+	                    delicious takeaway in minutes.</p>
+	            </div>
+	        </li>
+	        <li class="card three-col-card">
+	            <i class="icon-about"><span>Order Food Online</span></i>
+	            <div class="card-content">
+	                <h2 class="info-header">Order Food Online</h2>
+	                <p class="info-content">Forget hunting around for paper takeaway menus, at hungryhouse.co.uk you can
+	                    instantly access a wide array of takeaway restaurants in your local area. Browse through
+	                    peer-reviewed takeaway menus that include opening times, accepted payment types and special offers.
+	                    With online payment and convenient favourites feature, ordering your regular takeaway has never been
+	                    easier.</p>
+	            </div>
+	        </li>
+	        <li class="card three-col-card">
+	            <i class="icon-cuisines icon-card"><span>Cuisines</span></i>
+	            <div class="card-content">
+	                <h2 class="info-header">Indian, Chinese, Pizza &amp; more</h2>
+	                <p class="info-content">hungryhouse prides itself on offering a wide range of options with plenty of
+	                    choice. With new restaurants being added daily, it's easy to find local favourites such as Indian,
+	                    Chinese and Pizza but also a great opportunity to discover new dishes or track down top-ranking
+	                    restaurants in your area. Simply pop in your postcode and let us take care of the rest! Because...
+	                    Your hunger. Our mission.</p>
+	            </div>
+	        </li>
+	    </ul>
+	</div>
+	
+	<footer-html></footer-html>
+	
+	
+	<script type="text/javascript" src="js/jquery-2.0.3.min.js" ></script>
+	<script type="text/javascript" src="js/typeahead.bundle.js" ></script>
+	
+	<script type="text/javascript" src="js/angular.js" ></script>
+	<script type="text/javascript" src="js/angular-typeahead.js" ></script>
+	<script type="text/javascript" src="js/footer.js" ></script>
+	<script type="text/javascript" src="js/index.js" ></script>
+	
+</body>
+</html>

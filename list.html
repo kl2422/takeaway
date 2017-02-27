@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html ng-app="listApp" >
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>all Takeaways in Fulham, Parson's Green SW6 | hungryhouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description"
+          content="Order all takeaway online. Find  all takeaways and restaurants that deliver your favourite food to Fulham and Parson&#039;s Green SW6. Pay online or with cash."/>
+    <link href="./css/style.css" rel="stylesheet" type="text/css"/>
+	<style type="text/css">
+		.spinner {
+		  margin: 0 auto;
+		  width: 50px;
+		  height: 60px;
+		  text-align: center;
+		  font-size: 10px;
+		}
+		 
+		.spinner > div {
+		  background-color: red;
+		  height: 100%;
+		  width: 6px;
+		  display: inline-block;
+		   
+		  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+		  animation: stretchdelay 1.2s infinite ease-in-out;
+		}
+		 
+		.spinner .rect2 {
+		  -webkit-animation-delay: -1.1s;
+		  animation-delay: -1.1s;
+		}
+		 
+		.spinner .rect3 {
+		  -webkit-animation-delay: -1.0s;
+		  animation-delay: -1.0s;
+		}
+		 
+		.spinner .rect4 {
+		  -webkit-animation-delay: -0.9s;
+		  animation-delay: -0.9s;
+		}
+		 
+		.spinner .rect5 {
+		  -webkit-animation-delay: -0.8s;
+		  animation-delay: -0.8s;
+		}
+		 
+		@-webkit-keyframes stretchdelay {
+		  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
+		  20% { -webkit-transform: scaleY(1.0) }
+		}
+		 
+		@keyframes stretchdelay {
+		  0%, 40%, 100% {
+		    transform: scaleY(0.4);
+		    -webkit-transform: scaleY(0.4);
+		  }  20% {
+		    transform: scaleY(1.0);
+		    -webkit-transform: scaleY(1.0);
+		  }
+		}
+		[ng-cloak]{display: none;}
+	</style>
+</head>
+
+<body class="bodyRestaurants bodyHungryhouse desktop" id="body_website" >
+<div class="body" ng-controller="listCtl" ng-cloak >
+	<!--顶部开始-->
+    <div class="topArea">
+        <div class="header">
+            <a class="logo" href="index.html" title="order takeaway online">
+                <span>Hungryhouse.co.uk</span>
+            </a>
+            <div class="userInfo">
+            	<div ng-show="!isLogin">
+            		<a href="register.html" class="guestJoinButton">
+	                    <span>Create account</span>
+	                </a>
+	                <a href="login.html" class="fancyOpen button--small">
+	                    <span>Sign in</span>
+	                </a>
+            	</div>
+                <div ng-show="isLogin">
+                	welcome, {{firstname}}
+                </div>
+            </div>
+
+            <ul class="mainNav">
+                <li class="nav-home">
+                    <a href="/"><span>Home</span></a>
+                </li>
+                <li class="active">
+                    <a title="My Order" href="/search_loading"><span>My Order</span></a>
+                </li>
+                <li>
+                    <a title="Help" href="/contact"><span>Contact/Help</span></a>
+                </li>
+                <li>
+                    <a title="Order Tracking" href="/ordertracking"
+                       class="homeNavOrderTracking"><span>Order Tracking</span></a>
+                </li>
+            </ul>
+            <div id="header-message" class="larger">
+                <span>Order Takeaway Online!</span>
+            </div>
+        </div>
+    </div>
+	<!--顶部结束-->
+	
+	<!--内容开始-->
+    <div id="main-container">
+        <div id="maincontent-start"></div>
+        <!-- Start body -->
+        <div id="maincontent">
+        	<!--search begin-->
+            <div class="searchTopArea">
+                <form >
+                    <div class="searchBar postcodeIsGuessed">
+                        <div class="searchBox">
+                            <span class="question">What are you hungry for?</span>
+                            <div class="searchLayout">
+                                <input type="text" placeholder="Enter restaurant name" class="searchInput" 
+                                	ng-model = "restaurant.queryParams.searchKey" />
+                                <input class="searchButton" type="submit" value="Search" ng-click="search()"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br class="clear"/>
+                </form>
+            </div>
+            
+            <div class="bodyContent" id="body-content">
+				
+				<!--左侧搜索菜单-->
+                <div class="colLeft">
+                    <form class="searchFilters">
+                        <div class="filtersHeader">
+                            <h3>Filters</h3>
+                            <a href="#" class="clear-filters">clear</a>
+                        </div>
+                        <div class="clear"></div>
+                        <div class="cuisines restsFilterBoxCuisines">
+                            <h4>Cuisines</h4>
+                            <ul>
+                                <li ng-repeat="cuisine in filterMenus.cuisines|limitTo:8" ng-class="{activeFilter:cuisine==restaurant.queryParams.cuisine}">
+                                    <label>
+                                        <input type="checkbox" ng-checked = "cuisine==restaurant.queryParams.cuisine"
+                                        	ng-true-value="'{{cuisine}}'" ng-false-value="''" ng-model="restaurant.queryParams.cuisine" 
+                                        	ng-click="search()"/>
+                                        <span>{{cuisine}}</span>
+                                    </label>
+                                </li>
+                            </ul>
+                            <div class="restsCuisinesMore" ng-class="{close:showMoreLess==1, open:showMoreLess==0}" >
+                                <ul>
+                                    <li ng-repeat="cuisine in filterMenus.cuisines" ng-show="$index>7">
+                                        <label>
+                                           <input type="checkbox" ng-checked = "cuisine==restaurant.queryParams.cuisine"
+                                        	ng-true-value="'{{cuisine}}'" ng-false-value="''" ng-model="restaurant.queryParams.cuisine" 
+                                        	ng-click="search()"/>
+                                        	<span>{{cuisine}}</span>
+                                        </label>
+                                    </li>
+                                    
+                                </ul>
+                                <div class="restsCuisinesMoreRuler">
+                                    <a href="javascript:;" ng-click="showMoreLessCuisine(0)" class="open"><span>See more cuisines &raquo;</span></a>
+                                    <a href="javascript:;" ng-click="showMoreLessCuisine(1)" class="close"><span>&laquo; See fewer cuisines</span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="rests-additional-filters-h">
+                            <div class="search-filters-specials">
+                                <h4>Neighborhoods</h4>
+                                <ul>
+                                    <li ng-repeat="neighborhood in filterMenus.area.neighborhoods" >
+                                        <label>
+                                           <input type="checkbox" ng-checked = "neighborhood==restaurant.queryParams.neighborhood"
+                                        	ng-true-value='"{{neighborhood}}"' ng-false-value="''" ng-model="restaurant.queryParams.neighborhood" 
+                                        	ng-click="search()"/>
+                                            <span class="restsFilterTitle">{{neighborhood}}</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="search-filters-service">
+                                <h4>Districts</h4>
+                                <ul class="restsFilersList">
+                                    <li ng-repeat="district in filterMenus.area.districts" >
+                                        <label>
+                                           <input type="checkbox" ng-checked = "district==restaurant.queryParams.neighborhood"
+                                        	ng-true-value='"{{district}}"' ng-false-value="''" ng-model="restaurant.queryParams.neighborhood" 
+                                        	ng-click="search()"/>
+                                            <span class="restsFilterTitle">{{district}}</span>
+                                        </label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="restsFilterBox open">
+                                <h4>Price</h4>
+                                <ul class="restsFilersList">
+                                    <li ng-repeat="price in filterMenus.prices" >
+                                        <label>
+                                           <input type="checkbox" ng-checked = "price==restaurant.queryParams.averagePrice"
+                                        	ng-true-value="'{{price}}'" ng-false-value="''" ng-model="restaurant.queryParams.averagePrice" 
+                                        	ng-click="search()"/>
+                                            <span class="restsFilterTitle">{{price}}</span>
+                                        </label>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="rests-additional-filters-spinner"></div>
+                    </form>
+
+                </div>
+                
+                <!--右侧数据展示-->
+                <div class="colRight" id="rest-results">
+
+                    <div class="searchResults">
+                        <div class="searchItems">
+                            <div class="sortBy sortByCurrentOnline">
+                                <form >
+                                    <span><h3>Sort By:</h3> </span>
+
+                                    <a href="#" ng-click="sort(1)" >Rating</a> | <a href="#" ng-click="sort(2)" >Price</a>
+                                     | <a href="#" ng-click="sort(3)">A - Z</a>
+                                </form>
+
+                            </div>
+                            <div class="searchResInfo">
+                                <h2>
+					                <span>Showing {{restaurant.totalCount}} results</span>
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="restsSearchResultsList" >
+                        <div infinite-scroll="restaurant.nextPage()" infinite-scroll-disabled="restaurant.busy" 
+							infinite-scroll-distance='1' >
+							
+                            <div class="filtered1 restaurantBlock" ng-repeat="item in restaurant.items" >
+                                <div class="restsSearchItemRes" >
+                                    <div class="restsSearchItemResBox">
+                                        <div class="restsSearchItemResBoxWrapper">
+                                            <div class="restsMainInfo">
+                                                <div class="restsRestInfoHeader clearFix">
+                                                    <h3>
+                                                    	<a class="restPageLink" href="javascript:void(0);" title="{{item.name}}">{{item.name}}</a>
+                                                    </h3>
+
+                                                    <div class="restsRatingStarWrapper">
+                                                        <div class="restsRating">
+                                                            <div style="width:{{item.votePercent}}">
+                                                                <span>Average rating: {{item.likeVotes}} of {{item.likeVotes + item.dislikeVotes}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <small class="restsRatingText">
+                                                            <a href="javascript:void(0)"
+                                                               title="Based on {{item.likeVotes + item.dislikeVotes}} Burger King reviews"
+                                                               class="restsMainReviews">
+																<span>{{item.likeVotes + item.dislikeVotes}}</span> ratings
+                                                            </a>
+                                                        </small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="restsRestInfo">
+                                                    <div class="imageAndSponsoredLink">
+                                                        <div class="restsRestImage">
+                                                            <a class="restPageLink" href="javascript:void(0)" title="{{item.name}}">
+                                                                <img ng-src="{{item.thumbnail}}" alt="{{item.name}}" width="90" height="70"/>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+
+                                                    <span class="restsCousineType">
+														<i class="icon-dish"></i>
+                        								<strong>{{item.cuisine}} | {{item.area}}</strong>
+													</span>
+
+                                                    <div class="restsDeliveryInfo">
+                                                        <i class="icon-cash"></i>
+                                                        <p class="restsDeliveryInfoWrapper">
+														<span>Price: {{item.averagePrice}}<br/>
+															<em class="delivery"> {{item.introduction}} </em>
+														</span>
+                                                        </p>
+                                                    </div>
+                                                    
+                                                    <div class="restsDeliveryInfo">
+                                                        <i class="icon-cash"></i>
+                                                        <p class="restsDeliveryInfoWrapper" style="width: 300px;">
+															<span>Location: {{item.location}}<br/>
+																<em class="delivery"> {{item.introduction}} </em>
+															</span>
+                                                        </p>
+                                                    </div>
+                                                    
+                                                    <!-- assign rest-menu-button -->
+
+                                                    <a title="Burger King" href="/burger-king-gloucester-road"
+                                                       class="restsRestStatus restPageLink  restsStatusOpens">
+                                                        <b>Pre-order</b>
+                                                        <span>Opens 12:00</span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="clear"></div>
+                                            <div class="restsRestTipsHolder">
+                                                <div class="restsRestTips">
+                                                    <div class="restsRestTipsBox">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </div>                            </div>
+
+                        </div>
+                        <div id="restsPages" ng-show="restaurant.hasNextPage">
+                        	<div class="spinner">
+							  <div class="rect1"></div>
+							  <div class="rect2"></div>
+							  <div class="rect3"></div>
+							  <div class="rect4"></div>
+							  <div class="rect5"></div>
+							</div>
+                        </div>
+
+                        <div id="restsListMarker"></div>
+                    </div>
+
+                </div>
+            </div>
+            <br class="clear"/>
+
+
+            <div class="AppC" style="display:none;">
+                <div class="icon-x">&#10799;</div>
+                <a class="openInApp">
+                    <div class="downloadText">
+                        <img class="applogo" src="https://static.hungryhouse.co.uk/images/app-icons.png?e287726"
+                             alt="Open in App"/>
+                        <div class="downloadAppText">
+                            <strong>hungryhouse App</strong>
+                            <p>Order takeaway in just a few taps</p>
+                        </div>
+                    </div>
+                    <div class="downloadApp">OPEN IN APP</div>
+                    <div class="appRating"></div>
+                </a>
+            </div>
+
+        </div> <!-- end maincontent -->
+        <div class="clear"></div>
+
+        <!-- End body -->
+
+        <div id="maincontent-end"></div>
+    </div> <!-- end main-container -->
+	<!--内容结束-->
+</div>
+
+<footer-html></footer-html>
+</body>
+
+	<script type="text/javascript" src="js/jquery-2.0.3.min.js" ></script>
+	<script type="text/javascript" src="js/angular.js" ></script>
+	<script type="text/javascript" src="js/footer.js" ></script>
+	<script type="text/javascript" src="js/ng-infinite-scroll.js" ></script>
+	<script type="text/javascript" src="js/list.js" ></script>
+</html>

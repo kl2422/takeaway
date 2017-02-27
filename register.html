@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="registerApp">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>hungryhouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="robots" content="noindex,nofollow"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="bodyAccount bodyHungryhouse desktop" >
+
+<div class="body" ng-controller="registerCtl">
+    <div class="topArea">
+        <div class="header">
+            <a class="logo" href="index.html" title="order takeaway online">
+                <span>Hungryhouse.co.uk</span>
+            </a>
+            <div class="userInfo">
+                <a href="javascript:void(0)">
+                    <span>Create account</span>
+                </a>
+
+                <a href="login.html" class="guestJoinButton">
+                    <span>Sign in</span>
+                </a>
+            </div>
+            <div id="header-message" class="larger">
+                <span>Order Takeaway Online!</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main-container">
+
+        <div id="maincontent-start"></div>
+        <!-- Start body -->
+        <div id="maincontent">
+            <div class="signInPopupWrapper signInWrapperNew signInWrapperNewForJQ clearfix">
+                <div id="popup-tpl" class="accountJoin">
+
+                    <i class="icon-logo-hh hhLogoTop"></i>
+                    <p class="headline">
+                        <i class="icon-login-user"></i>
+                        &nbsp;<strong>Create account in seconds!</strong>
+                    </p>
+
+                    <form >
+                        <fieldset class="login flexItem half">
+                        	<input autocapitalize="off" autocorrect="off" type="text"
+                                  placeholder="Firstname" required="required" ng-model="searchForm.firstname" />
+                            <input autocapitalize="off" autocorrect="off" type="email"
+                                  placeholder="Email Address" required="required" ng-model="searchForm.email"/>
+                            <input autocapitalize="off" autocorrect="off" type="password"
+                                   name="password" placeholder="Password" required="required" ng-model="searchForm.password"/>
+							<div>
+								<input autocapitalize="off" autocorrect="off" type="text" ng-model="searchForm.phone"
+                            	placeholder="Mobile phone" tabindex="3" required="required" style="width: 60%;"/>
+                            	<button style="width: 35%;float: right;" ng-click="sendVerifyCode()" 
+                            		ng-disabled="clicked" >{{title}}</button>
+							</div>
+							<input autocapitalize="off" autocorrect="off" type="text" 
+                        	placeholder="Verify code" required="required" ng-model="searchForm.verifyCode" />
+                            
+                            <button type="submit" class="ctaBtn green button--green" 
+                            	ng-click="signup()" ng-disabled="registerBtnClicked">Create Account</button>
+                        </fieldset>
+                        <div class="options flexItem half signUpBackground"></div>
+                    </form>
+                </div>
+
+            </div> <!-- end maincontent -->
+            <div class="clear"></div>
+
+            <!-- End body -->
+
+            <div id="maincontent-end"></div>
+        </div> <!-- end main-container -->
+
+    </div>
+    
+	<!--footer-->
+	<footer-html></footer-html>
+	
+	<script type="text/javascript" src="js/angular.js" ></script>
+	<script type="text/javascript" src="js/footer.js" ></script>
+    <script type="text/javascript" src="js/register.js" ></script>
+    
+</body>
+</html>
